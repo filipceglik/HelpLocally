@@ -1,0 +1,21 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1 class="material-color-def">Login</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Login.UserName"></label>
+        <input type="text" asp-for="Login.UserName" class="form-control" />
+        <span asp-validation-for="Login.UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Login.Password"></label>
+        <input type="password" asp-for="Login.Password" class="form-control" />
+        <span asp-validation-for="Login.Password" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary">Log in</button>
+</form>

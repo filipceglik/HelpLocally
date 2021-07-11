@@ -1,0 +1,40 @@
+﻿@page
+@model HelpLocally.Web.Pages.Offers.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="material-color-def">Offers</h1>
+
+<div class="tiles__table tiles__table--first table-responsive">
+    <table class="table">
+        <thead class="material-bg-surf">
+            <tr>
+                <th scope="col" class="material-color-surf">#</th>
+                <th scope="col" class="material-color-surf">Name</th>
+                <th scope="col" class="material-color-surf">Description</th>
+                <th scope="col" class="material-color-surf">OfferType Id</th>
+                <th scope="col" class="material-color-surf">Price</th>
+                <th scope="col" class="material-color-surf">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="material-bg-surf-2">
+            @{ int i = 1; }
+            @foreach (var offer in Model.Offers)
+            {
+                <tr>
+                    <th scope="col" class="material-color-surf">@i</th>
+                    <th scope="col" class="material-color-surf">@offer.Name</th>
+                    <th scope="col" class="material-color-surf">@offer.Description</th>
+                    <th scope="col" class="material-color-surf">@offer.OfferTypeId</th>
+                    <th scope="col" class="material-color-surf">@offer.Price</th>
+                    <th scope="col" class="material-color-surf">
+                        <a href="#" class="btn btn-primary">Buy now</a>
+                    </th>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+

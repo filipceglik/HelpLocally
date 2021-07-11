@@ -1,0 +1,29 @@
+﻿@page
+@model HelpLocally.Web.Pages.Offers.EditModel
+@{
+    ViewData["Title"] = "Edit offer";
+}
+
+<h1 class="material-color-def">Edit offer</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Offer.Id" />
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Offer.Name"></label>
+        <input asp-for="Offer.Name" class="form-control" />
+        <span asp-validation-for="Offer.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Offer.Description"></label>
+        <input asp-for="Offer.Description" class="form-control" />
+        <span asp-validation-for="Offer.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Offer.Price"></label>
+        <input type="number" asp-for="Offer.Price" class="form-control" />
+        <span asp-validation-for="Offer.Price" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form>
+
+

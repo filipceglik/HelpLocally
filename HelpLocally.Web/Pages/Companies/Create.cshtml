@@ -1,0 +1,30 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create company";
+}
+
+<h1 class="material-color-def">Create company</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Company.Name"></label>
+        <input asp-for="Company.Name" class="form-control" />
+        <span asp-validation-for="Company.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Company.Nip"></label>
+        <input asp-for="Company.Nip" class="form-control" />
+        <span asp-validation-for="Company.Nip" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Company.BankAccountNumber"></label>
+        <input asp-for="Company.BankAccountNumber" class="form-control" />
+        <span asp-validation-for="Company.BankAccountNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def">Owner</label>
+        <select class="form-control" asp-for="@Model.SelectedUser" asp-items="@Model.Users"></select>
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form>

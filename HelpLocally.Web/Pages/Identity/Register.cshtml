@@ -1,0 +1,25 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="material-color-def">Register</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Register.UserName"></label>
+        <input type="text" asp-for="Register.UserName" class="form-control" />
+        <span asp-validation-for="Register.UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def" asp-for="Register.Password"></label>
+        <input type="password" asp-for="Register.Password" class="form-control" />
+        <span asp-validation-for="Register.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="material-color-def">Role</label>
+        <select class="form-control" asp-for="@Model.SelectedRole" asp-items="@Model.Roles"></select>
+    </div>
+    <button class="btn btn-primary">Register</button>
+</form>

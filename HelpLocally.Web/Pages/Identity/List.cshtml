@@ -1,0 +1,37 @@
+﻿@page
+@model HelpLocally.Web.Pages.Identity.ListModel
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1 class="material-color-def">Users List</h1>
+
+<div class="tiles__table tiles__table--first table-responsive">
+    <table class="table">
+        <thead class="material-bg-surf">
+            <tr>
+                <th scope="col" class="material-color-surf">#</th>
+                <th scope="col" class="material-color-surf">Id</th>
+                <th scope="col" class="material-color-surf">Username</th>
+                <th scope="col" class="material-color-surf">Role</th>
+                <th scope="col" class="material-color-surf">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="material-bg-surf-2">
+            @{ int i = 1; }
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <th scope="col" class="material-color-surf">@i</th>
+                    <th scope="col" class="material-color-surf">@user.Id</th>
+                    <th scope="col" class="material-color-surf">@user.UserName</th>
+                    <th scope="col" class="material-color-surf">@user.Role</th>
+                    <th scope="col" class="material-color-surf">
+                        <a asp-route-Id="@user.Id" asp-page="/Identity/Delete" class="btn btn-primary">Delete</a>
+                    </th>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

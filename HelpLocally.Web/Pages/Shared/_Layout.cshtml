@@ -1,0 +1,114 @@
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | HelpLocally</title>
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="~/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="~/favicon/safari-pinned-tab.svg" color="#0c1035">
+    <meta name="msapplication-TileColor" content="#0c1035">
+    <meta name="theme-color" content="#3a3f4a">
+</head>
+<body class="material-bg-def d-flex flex-column">
+    <header id="header" class="header material-bg-surf">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-page="/Index">HelpLocally</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-flex">
+                    @if (!this.User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav w-100 justify-content-end">
+                            <li class="nav-item material-color-surf">
+                                <a class="nav-link" asp-page="/Identity/Register">Register</a>
+                            </li>
+                            <li class="nav-item material-color-surf">
+                                <a class="nav-link" asp-page="/Identity/Login">Log in</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav w-100 justify-content-start">
+                            @if (this.User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item material-color-surf position-relative">
+                                    <a class="nav-link dropdown-toggle" asp-page="/Offers/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Companies</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="material-color-surf dropdown-item" asp-page="/Companies/Create">Create</a>
+                                        <a class="material-color-surf dropdown-item" asp-page="/Companies/List">List</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item material-color-surf position-relative">
+                                    <a class="nav-link dropdown-toggle" asp-page="/Offers/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="material-color-surf dropdown-item" asp-page="/Identity/Register">Register</a>
+                                        <a class="material-color-surf dropdown-item" asp-page="/Identity/List">List</a>
+                                    </div>
+                                </li>
+                            }
+
+                            @if (this.User.IsInRole("Company"))
+                            {
+                                <li class="nav-item material-color-surf position-relative">
+                                    <a class="nav-link dropdown-toggle" asp-page="/Offers/Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Offers</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="material-color-surf dropdown-item" asp-route-UserId="@this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value" asp-page="/Offers/Create">Create</a>
+                                        <a class="material-color-surf dropdown-item" asp-route-UserId="@this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value" asp-page="/Offers/List">List</a>
+                                    </div>
+                                </li>
+                            }
+
+                            @if (this.User.IsInRole("Customer"))
+                            {
+                                <li class="nav-item material-color-surf">
+                                    <a class="nav-link" asp-page="/Offers/Index">Offers</a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="navbar-nav w-100 justify-content-end">
+                            <li class="nav-item material-color-surf">
+                                @{ var role = string.Join(", ", this.User.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)); }
+                                <span title="Role: @role" class="nav-link">Howdy, @(this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value) (@role)</span>
+                            </li>
+                            <li class="nav-item material-color-surf">
+                                <a class="nav-link" asp-page="/Identity/Logout">Log out</a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer material-bg-surf" style="margin-top:auto">
+        <div class="container">
+            <div class="footer__content">
+                <p class="material-color-surf">HelpLocally &copy; 2021 | FiCe</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
